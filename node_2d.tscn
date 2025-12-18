@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsm2t522nd03d"]
+
+[ext_resource type="Script" uid="uid://c5lbfj4wrtcik" path="res://player.gd" id="1_0e48y"]
+[ext_resource type="Texture2D" uid="uid://cragn6l3iqlgw" path="res://circle.png" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://cm6vxnotmvbeq" path="res://player_canvas.gd" id="4_0hol4"]
+[ext_resource type="Texture2D" uid="uid://dvgsnxgvf5aj8" path="res://square.png" id="4_q6r6c"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wtcfe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y32ns"]
+radius = 50.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+size = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hol4"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0, 0, 0.4)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="WorldBoundary" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldBoundary"]
+position = Vector2(0, 300)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_wtcfe")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="WorldBoundary"]
+position = Vector2(1152, 300)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/StaticBody2D2"]
+shape = SubResource("WorldBoundaryShape2D_wtcfe")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="WorldBoundary"]
+position = Vector2(600, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/StaticBody2D3"]
+shape = SubResource("WorldBoundaryShape2D_wtcfe")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="WorldBoundary"]
+position = Vector2(600, 0)
+rotation = -3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/StaticBody2D4"]
+shape = SubResource("WorldBoundaryShape2D_wtcfe")
+
+[node name="Player" type="RigidBody2D" parent="."]
+position = Vector2(106, 305)
+continuous_cd = 1
+script = ExtResource("1_0e48y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_y32ns")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_wtcfe")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+position = Vector2(624, 523)
+scale = Vector2(1732.3873, 305.69614)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("4_q6r6c")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+position = Vector2(624.00006, 89.00001)
+scale = Vector2(1732.3873, 305.69614)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D2"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+position = Vector2(-3.5231817e-08, -2.4957446e-08)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("4_q6r6c")
+
+[node name="Canvas" type="Node2D" parent="."]
+script = ExtResource("4_0hol4")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_0hol4")
+value = 100.0
+
+[node name="Control2" type="Control" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="draw_force_vector" from="Player" to="Canvas" method="_on_player_draw_force_vector"]
