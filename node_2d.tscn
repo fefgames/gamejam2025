@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5lbfj4wrtcik" path="res://scripts/player.gd" id="1_0e48y"]
 [ext_resource type="Script" uid="uid://cm6vxnotmvbeq" path="res://scripts/player_canvas.gd" id="4_0hol4"]
+[ext_resource type="Texture2D" uid="uid://cragn6l3iqlgw" path="res://circle.png" id="4_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://dvgsnxgvf5aj8" path="res://square.png" id="4_q6r6c"]
 [ext_resource type="Script" uid="uid://dq82rius77doi" path="res://scripts/fuel_progress_bar.gd" id="5_q6r6c"]
 [ext_resource type="Script" uid="uid://b25lvmf2pwk3k" path="res://scripts/puzzle.gd" id="6_4d7sh"]
@@ -9,11 +10,9 @@
 [ext_resource type="Script" uid="uid://cg2xtkdgcqodl" path="res://scripts/game.gd" id="6_kdubu"]
 [ext_resource type="Script" uid="uid://b81x7sl207vsp" path="res://scripts/texture_button.gd" id="7_rj586"]
 [ext_resource type="Texture2D" uid="uid://cga73l4kq4trk" path="res://restart.svg" id="8_4d7sh"]
+[ext_resource type="Script" uid="uid://bp0gp5akokv8b" path="res://scripts/camera.gd" id="8_hqns4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
-size = Vector2(1, 1)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wtcfe"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir8iy"]
 
 [sub_resource type="Image" id="Image_4d7sh"]
 data = {
@@ -939,6 +938,8 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hqns4"]
+
 [node name="Node2D" type="Node2D" unique_id=2109495145]
 
 [node name="Game" type="Node" parent="." unique_id=1818108786 node_paths=PackedStringArray("player", "puzzle")]
@@ -956,66 +957,26 @@ player_spawn = NodePath("PlayerSpawn")
 [node name="PlayerSpawn" type="Node2D" parent="Puzzle" unique_id=220937150]
 position = Vector2(92, 307)
 
-[node name="Walls" type="Node2D" parent="Puzzle" unique_id=1171692019]
+[node name="GravityBody" type="StaticBody2D" parent="Puzzle" unique_id=213071163]
+position = Vector2(577, 310)
+scale = Vector2(4.49, 4.49)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Puzzle/Walls" unique_id=1950780676]
-position = Vector2(624, 560.635)
-scale = Vector2(1732.387, 188)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/GravityBody" unique_id=570752065]
+scale = Vector2(5.0510435, 4.9926124)
+shape = SubResource("CircleShape2D_ir8iy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/Walls/StaticBody2D" unique_id=578366276]
-shape = SubResource("RectangleShape2D_epypp")
-
-[node name="Sprite2D" type="Sprite2D" parent="Puzzle/Walls/StaticBody2D" unique_id=293484620]
-modulate = Color(0.5, 0.5, 0.5, 1)
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("4_q6r6c")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Puzzle/Walls" unique_id=1760032362]
-position = Vector2(624.00006, 89.00001)
-scale = Vector2(1732.387, 188.221)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/Walls/StaticBody2D2" unique_id=1019017761]
-shape = SubResource("RectangleShape2D_epypp")
-
-[node name="Sprite2D" type="Sprite2D" parent="Puzzle/Walls/StaticBody2D2" unique_id=544993341]
-modulate = Color(0.5, 0.5, 0.5, 1)
-position = Vector2(-3.5231817e-08, -2.4957446e-08)
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("4_q6r6c")
-
-[node name="WorldBoundary" type="Node2D" parent="Puzzle" unique_id=602980070]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Puzzle/WorldBoundary" unique_id=2118634273]
-position = Vector2(0, 300)
-rotation = 1.5707964
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/WorldBoundary/StaticBody2D" unique_id=843736563]
-shape = SubResource("WorldBoundaryShape2D_wtcfe")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Puzzle/WorldBoundary" unique_id=1844228590]
-position = Vector2(1152, 300)
-rotation = -1.5707964
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/WorldBoundary/StaticBody2D2" unique_id=997543832]
-shape = SubResource("WorldBoundaryShape2D_wtcfe")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Puzzle/WorldBoundary" unique_id=800728513]
-position = Vector2(600, 648)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/WorldBoundary/StaticBody2D3" unique_id=1870630479]
-shape = SubResource("WorldBoundaryShape2D_wtcfe")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Puzzle/WorldBoundary" unique_id=1352684343]
-position = Vector2(600, 0)
-rotation = -3.1415925
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/WorldBoundary/StaticBody2D4" unique_id=296055833]
-shape = SubResource("WorldBoundaryShape2D_wtcfe")
+[node name="Circle" type="Sprite2D" parent="Puzzle/GravityBody" unique_id=449194698]
+texture = ExtResource("4_ir8iy")
 
 [node name="Player" type="RigidBody2D" parent="." unique_id=464898273]
-position = Vector2(106, 305)
+position = Vector2(571, 46)
+rotation = -1.5707964
 can_sleep = false
 freeze_mode = 1
+linear_damp_mode = 1
+linear_damp = 0.2
+angular_damp_mode = 1
+angular_damp = 0.415
 script = ExtResource("1_0e48y")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player" unique_id=1770253258]
@@ -1051,17 +1012,34 @@ rotation = -3.1415925
 scale = Vector2(0.29999998, 0.18)
 texture = ExtResource("6_ir8iy")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1777513036]
-anchor_mode = 0
+[node name="Camera" type="RigidBody2D" parent="." unique_id=1721474851]
+position = Vector2(571, 47)
+rotation = -1.5707964
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("8_hqns4")
 
-[node name="UI" type="Control" parent="." unique_id=699085497]
+[node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1777513036]
+rotation = 1.5707964
+ignore_rotation = false
+
+[node name="UI" type="Control" parent="Camera/Camera2D" unique_id=699085497]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_4d7sh")
+metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=1627102942]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera/Camera2D/UI" unique_id=1627102942]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1070,17 +1048,17 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/VBoxContainer" unique_id=558398657]
+[node name="ProgressBar" type="ProgressBar" parent="Camera/Camera2D/UI/VBoxContainer" unique_id=558398657]
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_0hol4")
 value = 100.0
 script = ExtResource("5_q6r6c")
 
-[node name="Control2" type="Control" parent="UI/VBoxContainer" unique_id=346342377]
+[node name="Control2" type="Control" parent="Camera/Camera2D/UI/VBoxContainer" unique_id=346342377]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TextureButton" type="TextureButton" parent="UI/VBoxContainer/Control2" unique_id=854156874]
+[node name="TextureButton" type="TextureButton" parent="Camera/Camera2D/UI/VBoxContainer/Control2" unique_id=854156874]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -1095,9 +1073,14 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("7_rj586")
 
+[node name="Placeholder" type="CollisionShape2D" parent="Camera" unique_id=228039443]
+shape = SubResource("CircleShape2D_hqns4")
+
 [connection signal="reset_player_state" from="Game" to="Player" method="_on_game_reset_player"]
 [connection signal="draw_force_vector" from="Player" to="Canvas" method="_on_player_draw_force_vector"]
-[connection signal="update_fuel_percentage" from="Player" to="UI/VBoxContainer/ProgressBar" method="_on_player_update_fuel_percentage"]
-[connection signal="mouse_entered" from="UI/VBoxContainer/Control2/TextureButton" to="UI/VBoxContainer/Control2/TextureButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="UI/VBoxContainer/Control2/TextureButton" to="UI/VBoxContainer/Control2/TextureButton" method="_on_mouse_exited"]
-[connection signal="pressed" from="UI/VBoxContainer/Control2/TextureButton" to="Game" method="_on_reset_button_pressed"]
+[connection signal="position_updated" from="Player" to="Camera" method="_on_player_position_updated"]
+[connection signal="rotation_updated" from="Player" to="Camera" method="_on_player_rotation_updated"]
+[connection signal="update_fuel_percentage" from="Player" to="Camera/Camera2D/UI/VBoxContainer/ProgressBar" method="_on_player_update_fuel_percentage"]
+[connection signal="mouse_entered" from="Camera/Camera2D/UI/VBoxContainer/Control2/TextureButton" to="Camera/Camera2D/UI/VBoxContainer/Control2/TextureButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Camera/Camera2D/UI/VBoxContainer/Control2/TextureButton" to="Camera/Camera2D/UI/VBoxContainer/Control2/TextureButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Camera/Camera2D/UI/VBoxContainer/Control2/TextureButton" to="Game" method="_on_reset_button_pressed"]

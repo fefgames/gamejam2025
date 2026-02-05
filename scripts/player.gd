@@ -1,6 +1,8 @@
 extends RigidBody2D
 signal draw_force_vector(start: Vector2, end: Vector2)
 signal update_fuel_percentage(percentage: float)
+signal position_updated(pos: Vector2)
+signal rotation_updated(rot: float)
 
 
 @export var debug := false
@@ -18,6 +20,8 @@ const START_FUEL_RATIO := 1.0
 const FUEL_BURNED_PER_FORCE_SECOND := 0.0008
 
 func _physics_process(_delta: float) -> void:
+	position_updated.emit(global_position)
+	rotation_updated.emit(global_rotation)
 	if _force_active:
 		apply_force(_left_force_vector, transform.basis_xform(_left_booster.position))
 		apply_force(_center_force_vector, transform.basis_xform(_center_booster.position))
@@ -58,7 +62,6 @@ func _process(delta: float) -> void:
 	update_fuel_percentage.emit(_remaining_fuel_ratio * 100.0)
 	if debug:
 		draw_force_vector.emit(global_position, global_position + _left_force_vector)
-		
 		
 func _enter_tree() -> void:
 	_left_booster = $LeftBooster
