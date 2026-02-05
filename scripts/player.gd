@@ -3,8 +3,8 @@ signal draw_force_vector(start: Vector2, end: Vector2)
 signal update_fuel_percentage(percentage: float)
 
 
+@export var debug := false
 var _force_active := true
-#var _click_start_pos := Vector2.ZERO
 var _left_force_vector := Vector2.ZERO
 var _right_force_vector := Vector2.ZERO
 var _remaining_fuel_ratio := START_FUEL_RATIO
@@ -24,20 +24,21 @@ func _physics_process(_delta: float) -> void:
 func _process(delta: float) -> void:
 	var left_boost_pressed := Input.is_action_pressed("left_boost")
 	var right_boost_pressed := Input.is_action_pressed("right_boost")
-	
-	_left_booster.visible = left_boost_pressed
-	_right_booster.visible = right_boost_pressed
+	var has_fuel := _remaining_fuel_ratio > 0.0
 	
 	_force_active = left_boost_pressed or right_boost_pressed
 	
 	_left_force_vector = Vector2.ZERO
 	_right_force_vector = Vector2.ZERO
-	var force_dir := transform.basis_xform(Vector2.RIGHT)
+	_left_booster.visible = left_boost_pressed and has_fuel
+	_right_booster.visible = right_boost_pressed and has_fuel
 	
-	if left_boost_pressed:
-		_left_force_vector = MAX_FORCE_MAGNITUDE * force_dir
-	if right_boost_pressed:
-		_right_force_vector = MAX_FORCE_MAGNITUDE * force_dir
+	if has_fuel:
+		var force_dir := transform.basis_xform(Vector2.RIGHT)
+		if left_boost_pressed:
+			_left_force_vector = MAX_FORCE_MAGNITUDE * force_dir
+		if right_boost_pressed:
+			_right_force_vector = MAX_FORCE_MAGNITUDE * force_dir
 	
 	_remaining_fuel_ratio = clampf(
 		_remaining_fuel_ratio 
@@ -47,7 +48,8 @@ func _process(delta: float) -> void:
 		0, 1.0)
 	
 	update_fuel_percentage.emit(_remaining_fuel_ratio * 100.0)
-#	draw_force_vector.emit(global_position, global_position + _left_force_vector)
+	if debug:
+		draw_force_vector.emit(global_position, global_position + _left_force_vector)
 		
 		
 func _enter_tree() -> void:
