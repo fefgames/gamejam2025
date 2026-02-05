@@ -1032,16 +1032,23 @@ texture = ExtResource("4_q6r6c")
 
 [node name="RightBooster" type="Sprite2D" parent="Player" unique_id=723168235]
 modulate = Color(0.9007521, 0.53455544, 0, 1)
-position = Vector2(-31.999992, 30)
+position = Vector2(-31, 30)
 rotation = -3.1415925
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.14000002, 0.18)
 texture = ExtResource("6_ir8iy")
 
 [node name="LeftBooster" type="Sprite2D" parent="Player" unique_id=51502703]
 modulate = Color(0.9019608, 0.53333336, 0, 1)
-position = Vector2(-31.999992, -30.000008)
+position = Vector2(-31, -30.000008)
 rotation = -3.1415925
-scale = Vector2(0.18, 0.18)
+scale = Vector2(0.14000002, 0.18)
+texture = ExtResource("6_ir8iy")
+
+[node name="CenterBooster" type="Sprite2D" parent="Player" unique_id=1317252001]
+modulate = Color(0.9007521, 0.53455544, 0, 1)
+position = Vector2(-35, 0)
+rotation = -3.1415925
+scale = Vector2(0.29999998, 0.18)
 texture = ExtResource("6_ir8iy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1777513036]
