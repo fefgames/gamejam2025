@@ -959,8 +959,8 @@ position = Vector2(92, 307)
 [node name="Walls" type="Node2D" parent="Puzzle" unique_id=1171692019]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Puzzle/Walls" unique_id=1950780676]
-position = Vector2(624, 523)
-scale = Vector2(1732.3873, 305.69614)
+position = Vector2(624, 560.635)
+scale = Vector2(1732.387, 188)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/Walls/StaticBody2D" unique_id=578366276]
 shape = SubResource("RectangleShape2D_epypp")
@@ -972,7 +972,7 @@ texture = ExtResource("4_q6r6c")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Puzzle/Walls" unique_id=1760032362]
 position = Vector2(624.00006, 89.00001)
-scale = Vector2(1732.3873, 305.69614)
+scale = Vector2(1732.387, 188.221)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/Walls/StaticBody2D2" unique_id=1019017761]
 shape = SubResource("RectangleShape2D_epypp")
@@ -1022,6 +1022,26 @@ script = ExtResource("1_0e48y")
 polygon = PackedVector2Array(50, 0, -25, -43.3, -25, 43.3)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1330899617]
+texture = ExtResource("6_ir8iy")
+
+[node name="Square" type="Sprite2D" parent="Player" unique_id=1917257837]
+modulate = Color(0.37, 0.37, 0.37, 1)
+position = Vector2(-22.195, 0)
+scale = Vector2(0.115, 0.83)
+texture = ExtResource("4_q6r6c")
+
+[node name="RightBooster" type="Sprite2D" parent="Player" unique_id=723168235]
+modulate = Color(0.9007521, 0.53455544, 0, 1)
+position = Vector2(-31.999992, 30)
+rotation = -3.1415925
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("6_ir8iy")
+
+[node name="LeftBooster" type="Sprite2D" parent="Player" unique_id=51502703]
+modulate = Color(0.9019608, 0.53333336, 0, 1)
+position = Vector2(-31.999992, -30.000008)
+rotation = -3.1415925
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("6_ir8iy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1777513036]
