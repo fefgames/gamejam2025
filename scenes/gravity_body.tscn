@@ -6,13 +6,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ir8iy"]
 radius = 51.0
 
-[node name="GravityBody" type="Node2D" unique_id=493412226]
+[node name="GravityBody" type="StaticBody2D" unique_id=736125525]
 script = ExtResource("1_056c4")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=252760155]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1405494617]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1405494617]
 shape = SubResource("CircleShape2D_ir8iy")
 
-[node name="Circle" type="Sprite2D" parent="StaticBody2D" unique_id=634642081]
+[node name="Circle" type="Sprite2D" parent="." unique_id=634642081]
 texture = ExtResource("1_4d2ju")
