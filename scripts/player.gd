@@ -20,6 +20,7 @@ const START_FUEL_RATIO := 1.0
 const FUEL_BURNED_PER_FORCE_SECOND := 0.0008
 const GravityBody := preload("res://scripts/gravity_body.gd")
 
+
 func _physics_process(_delta: float) -> void:
     position_updated.emit(global_position)
     rotation_updated.emit(global_rotation)
@@ -27,10 +28,9 @@ func _physics_process(_delta: float) -> void:
         apply_force(_left_force_vector, transform.basis_xform(_left_booster.position))
         apply_force(_center_force_vector, transform.basis_xform(_center_booster.position))
         apply_force(_right_force_vector, transform.basis_xform(_right_booster.position))
-    
+
     for proximal_body in _proximal_bodies:
         apply_central_force(mass * proximal_body.gravity_at(global_position))
-    
 
 
 func _process(delta: float) -> void:
@@ -97,11 +97,13 @@ func _find_gravity_body(body: GravityBody) -> int:
         current += 1
     return -1
 
+
 func _on_proximal_body_entered(body: Node2D) -> void:
     if body is GravityBody:
         if _find_gravity_body(body) == -1:
             _proximal_bodies.append(body)
-        
+
+
 func _on_proximal_body_exited(body: Node2D) -> void:
     if body is GravityBody:
         var i := _find_gravity_body(body)
