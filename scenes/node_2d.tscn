@@ -1,16 +1,15 @@
 [gd_scene format=4 uid="uid://dsm2t522nd03d"]
 
-[ext_resource type="Script" uid="uid://c5lbfj4wrtcik" path="res://scripts/player.gd" id="1_0e48y"]
-[ext_resource type="Script" uid="uid://cm6vxnotmvbeq" path="res://scripts/player_canvas.gd" id="4_0hol4"]
-[ext_resource type="PackedScene" uid="uid://17xewa4smfj4" path="res://gravity_body.tscn" id="4_hqns4"]
-[ext_resource type="Texture2D" uid="uid://dvgsnxgvf5aj8" path="res://square.png" id="4_q6r6c"]
-[ext_resource type="Script" uid="uid://dq82rius77doi" path="res://scripts/fuel_progress_bar.gd" id="5_q6r6c"]
-[ext_resource type="Script" uid="uid://b25lvmf2pwk3k" path="res://scripts/puzzle.gd" id="6_4d7sh"]
-[ext_resource type="Texture2D" uid="uid://ckpif6uly47u6" path="res://triangle.svg" id="6_ir8iy"]
-[ext_resource type="Script" uid="uid://cg2xtkdgcqodl" path="res://scripts/game.gd" id="6_kdubu"]
-[ext_resource type="Script" uid="uid://b81x7sl207vsp" path="res://scripts/texture_button.gd" id="7_rj586"]
-[ext_resource type="Texture2D" uid="uid://cga73l4kq4trk" path="res://restart.svg" id="8_4d7sh"]
-[ext_resource type="Script" uid="uid://bp0gp5akokv8b" path="res://scripts/camera.gd" id="8_hqns4"]
+[ext_resource type="Script" uid="uid://cg2xtkdgcqodl" path="res://scripts/game.gd" id="1_f6ptj"]
+[ext_resource type="PackedScene" uid="uid://dse2tx6buqtw8" path="res://scenes/puzzle_0.tscn" id="2_dubn7"]
+[ext_resource type="Script" uid="uid://cm6vxnotmvbeq" path="res://scripts/player_canvas.gd" id="3_ifa78"]
+[ext_resource type="Script" uid="uid://c5lbfj4wrtcik" path="res://scripts/player.gd" id="6_x63s8"]
+[ext_resource type="Texture2D" uid="uid://ckpif6uly47u6" path="res://svg/triangle.svg" id="7_0q20i"]
+[ext_resource type="Texture2D" uid="uid://dvgsnxgvf5aj8" path="res://png/square.png" id="8_qv8l0"]
+[ext_resource type="Script" uid="uid://bp0gp5akokv8b" path="res://scripts/camera.gd" id="9_k6u5g"]
+[ext_resource type="Script" uid="uid://dq82rius77doi" path="res://scripts/fuel_progress_bar.gd" id="10_coh8c"]
+[ext_resource type="Texture2D" uid="uid://cga73l4kq4trk" path="res://svg/restart.svg" id="11_kmyi7"]
+[ext_resource type="Script" uid="uid://b81x7sl207vsp" path="res://scripts/texture_button.gd" id="12_ey6mn"]
 
 [sub_resource type="Image" id="Image_4d7sh"]
 data = {
@@ -940,27 +939,15 @@ corner_detail = 6
 
 [node name="Node2D" type="Node2D" unique_id=2109495145]
 
-[node name="Game" type="Node" parent="." unique_id=1818108786 node_paths=PackedStringArray("player", "puzzle")]
-script = ExtResource("6_kdubu")
+[node name="Game" type="Node2D" parent="." unique_id=1167656976 node_paths=PackedStringArray("player")]
+script = ExtResource("1_f6ptj")
 player = NodePath("../Player")
-puzzle = NodePath("../Puzzle")
+puzzle_scenes = Array[PackedScene]([ExtResource("2_dubn7")])
 
 [node name="Canvas" type="Node2D" parent="." unique_id=1454904939]
-script = ExtResource("4_0hol4")
-
-[node name="Puzzle" type="Node2D" parent="." unique_id=890004474 node_paths=PackedStringArray("player_spawn")]
-script = ExtResource("6_4d7sh")
-player_spawn = NodePath("PlayerSpawn")
-
-[node name="PlayerSpawn" type="Node2D" parent="Puzzle" unique_id=220937150]
-position = Vector2(92, 307)
-
-[node name="GravityBody" parent="Puzzle" unique_id=336975390 instance=ExtResource("4_hqns4")]
-position = Vector2(577, 310)
-scale = Vector2(4.5, 4.5)
+script = ExtResource("3_ifa78")
 
 [node name="Player" type="RigidBody2D" parent="." unique_id=464898273]
-position = Vector2(571, 46)
 rotation = -1.5707964
 can_sleep = false
 freeze_mode = 1
@@ -968,47 +955,46 @@ linear_damp_mode = 1
 linear_damp = 0.2
 angular_damp_mode = 1
 angular_damp = 0.415
-script = ExtResource("1_0e48y")
+script = ExtResource("6_x63s8")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player" unique_id=1770253258]
 polygon = PackedVector2Array(50, 0, -25, -43.3, -25, 43.3)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1330899617]
-texture = ExtResource("6_ir8iy")
+texture = ExtResource("7_0q20i")
 
 [node name="Square" type="Sprite2D" parent="Player" unique_id=1917257837]
 modulate = Color(0.37, 0.37, 0.37, 1)
 position = Vector2(-22.195, 0)
 scale = Vector2(0.115, 0.83)
-texture = ExtResource("4_q6r6c")
+texture = ExtResource("8_qv8l0")
 
 [node name="RightBooster" type="Sprite2D" parent="Player" unique_id=723168235]
 modulate = Color(0.9007521, 0.53455544, 0, 1)
 position = Vector2(-31, 30)
 rotation = -3.1415925
 scale = Vector2(0.14000002, 0.18)
-texture = ExtResource("6_ir8iy")
+texture = ExtResource("7_0q20i")
 
 [node name="LeftBooster" type="Sprite2D" parent="Player" unique_id=51502703]
 modulate = Color(0.9019608, 0.53333336, 0, 1)
 position = Vector2(-31, -30.000008)
 rotation = -3.1415925
 scale = Vector2(0.14000002, 0.18)
-texture = ExtResource("6_ir8iy")
+texture = ExtResource("7_0q20i")
 
 [node name="CenterBooster" type="Sprite2D" parent="Player" unique_id=1317252001]
 modulate = Color(0.9007521, 0.53455544, 0, 1)
 position = Vector2(-35, 0)
 rotation = -3.1415925
 scale = Vector2(0.29999998, 0.18)
-texture = ExtResource("6_ir8iy")
+texture = ExtResource("7_0q20i")
 
 [node name="Camera" type="RigidBody2D" parent="." unique_id=1721474851]
-position = Vector2(571, 47)
 rotation = -1.5707964
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("8_hqns4")
+script = ExtResource("9_k6u5g")
 
 [node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1777513036]
 rotation = 1.5707964
@@ -1043,7 +1029,7 @@ alignment = 1
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_0hol4")
 value = 100.0
-script = ExtResource("5_q6r6c")
+script = ExtResource("10_coh8c")
 
 [node name="Control2" type="Control" parent="Camera/Camera2D/UI/VBoxContainer" unique_id=346342377]
 layout_mode = 2
@@ -1059,10 +1045,10 @@ offset_top = -63.0
 offset_right = 63.0
 offset_bottom = -7.0
 grow_vertical = 0
-texture_normal = ExtResource("8_4d7sh")
+texture_normal = ExtResource("11_kmyi7")
 ignore_texture_size = true
 stretch_mode = 0
-script = ExtResource("7_rj586")
+script = ExtResource("12_ey6mn")
 
 [node name="Placeholder" type="CollisionShape2D" parent="Camera" unique_id=228039443]
 shape = SubResource("CircleShape2D_hqns4")

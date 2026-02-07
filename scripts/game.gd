@@ -1,23 +1,23 @@
 extends Node
 
 signal reset_player_state
+signal apply_gravity_body(body: GravityBody)
 
-const Player = preload("res://scripts/player.gd")
-const Puzzle = preload("res://scripts/puzzle.gd")
+const GravityBody := preload("res://scripts/gravity_body.gd")
+const Player := preload("res://scripts/player.gd")
+const Puzzle := preload("res://scripts/puzzle.gd")
 
 @export var player: Player = null
-@export var puzzle: Puzzle = null
+@export var puzzle_scenes: Array[PackedScene] = []
 
-var _do_physics_reset := false
-
+var _current_puzzle: Puzzle = null
+var _do_physics_reset := true
 
 func _process(delta: float) -> void:
     if _do_physics_reset:
-#		player.freeze = true
-#		player.global_position = puzzle.player_spawn.global_position
 
         PhysicsServer2D.body_set_state(
-            player.get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM, puzzle.player_spawn.transform
+            player.get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM, _current_puzzle.player_spawn.transform
         )
         player.linear_velocity = Vector2.ZERO
         player.angular_velocity = 0.0
@@ -26,10 +26,12 @@ func _process(delta: float) -> void:
     else:
         pass
 
-
-#		player.freeze = false
-
-
 func _on_reset_button_pressed() -> void:
     _do_physics_reset = true
     reset_player_state.emit()
+
+func _ready() -> void:
+    pass
+    var instance := puzzle_scenes[0].instantiate()
+    add_child(instance)
+    _current_puzzle = get_child(get_child_count() - 1)

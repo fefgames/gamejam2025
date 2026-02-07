@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dse2tx6buqtw8"]
+
+[ext_resource type="Script" uid="uid://b25lvmf2pwk3k" path="res://scripts/puzzle.gd" id="1_fte85"]
+[ext_resource type="Script" uid="uid://8cc1sntjp0dj" path="res://scripts/player_spawn.gd" id="2_hjvtu"]
+[ext_resource type="PackedScene" uid="uid://17xewa4smfj4" path="res://scenes/gravity_body.tscn" id="3_00p5c"]
+
+[node name="Puzzle" type="Node2D" unique_id=315139029]
+script = ExtResource("1_fte85")
+
+[node name="PlayerSpawn" type="Node2D" parent="." unique_id=1897141901]
+position = Vector2(569, 41)
+script = ExtResource("2_hjvtu")
+
+[node name="GravityBody" parent="." unique_id=493412226 instance=ExtResource("3_00p5c")]
+position = Vector2(577, 310)
+scale = Vector2(4.5, 4.5)

@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://17xewa4smfj4"]
 
-[ext_resource type="Texture2D" uid="uid://cragn6l3iqlgw" path="res://circle.png" id="1_4d2ju"]
+[ext_resource type="Texture2D" uid="uid://cragn6l3iqlgw" path="res://png/circle.png" id="1_4d2ju"]
 [ext_resource type="Script" uid="uid://ddahe1yuj3uer" path="res://scripts/gravity_body.gd" id="1_056c4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ir8iy"]
+radius = 51.0
 
 [node name="GravityBody" type="Node2D" unique_id=493412226]
 script = ExtResource("1_056c4")
