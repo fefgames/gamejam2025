@@ -13,11 +13,13 @@ const Puzzle := preload("res://scripts/puzzle.gd")
 var _current_puzzle: Puzzle = null
 var _do_physics_reset := true
 
+
 func _process(delta: float) -> void:
     if _do_physics_reset:
-
         PhysicsServer2D.body_set_state(
-            player.get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM, _current_puzzle.player_spawn.transform
+            player.get_rid(),
+            PhysicsServer2D.BODY_STATE_TRANSFORM,
+            _current_puzzle.player_spawn.transform
         )
         player.linear_velocity = Vector2.ZERO
         player.angular_velocity = 0.0
@@ -26,9 +28,11 @@ func _process(delta: float) -> void:
     else:
         pass
 
+
 func _on_reset_button_pressed() -> void:
     _do_physics_reset = true
     reset_player_state.emit()
+
 
 func _ready() -> void:
     pass
