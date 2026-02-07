@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5lbfj4wrtcik" path="res://scripts/player.gd" id="1_0e48y"]
 [ext_resource type="Script" uid="uid://cm6vxnotmvbeq" path="res://scripts/player_canvas.gd" id="4_0hol4"]
-[ext_resource type="Texture2D" uid="uid://cragn6l3iqlgw" path="res://circle.png" id="4_ir8iy"]
+[ext_resource type="PackedScene" uid="uid://17xewa4smfj4" path="res://gravity_body.tscn" id="4_hqns4"]
 [ext_resource type="Texture2D" uid="uid://dvgsnxgvf5aj8" path="res://square.png" id="4_q6r6c"]
 [ext_resource type="Script" uid="uid://dq82rius77doi" path="res://scripts/fuel_progress_bar.gd" id="5_q6r6c"]
 [ext_resource type="Script" uid="uid://b25lvmf2pwk3k" path="res://scripts/puzzle.gd" id="6_4d7sh"]
@@ -11,8 +11,6 @@
 [ext_resource type="Script" uid="uid://b81x7sl207vsp" path="res://scripts/texture_button.gd" id="7_rj586"]
 [ext_resource type="Texture2D" uid="uid://cga73l4kq4trk" path="res://restart.svg" id="8_4d7sh"]
 [ext_resource type="Script" uid="uid://bp0gp5akokv8b" path="res://scripts/camera.gd" id="8_hqns4"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ir8iy"]
 
 [sub_resource type="Image" id="Image_4d7sh"]
 data = {
@@ -957,16 +955,9 @@ player_spawn = NodePath("PlayerSpawn")
 [node name="PlayerSpawn" type="Node2D" parent="Puzzle" unique_id=220937150]
 position = Vector2(92, 307)
 
-[node name="GravityBody" type="StaticBody2D" parent="Puzzle" unique_id=213071163]
+[node name="GravityBody" parent="Puzzle" unique_id=336975390 instance=ExtResource("4_hqns4")]
 position = Vector2(577, 310)
-scale = Vector2(4.49, 4.49)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle/GravityBody" unique_id=570752065]
-scale = Vector2(5.0510435, 4.9926124)
-shape = SubResource("CircleShape2D_ir8iy")
-
-[node name="Circle" type="Sprite2D" parent="Puzzle/GravityBody" unique_id=449194698]
-texture = ExtResource("4_ir8iy")
+scale = Vector2(4.5, 4.5)
 
 [node name="Player" type="RigidBody2D" parent="." unique_id=464898273]
 position = Vector2(571, 46)
