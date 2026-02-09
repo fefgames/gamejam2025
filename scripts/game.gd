@@ -35,7 +35,6 @@ func _on_reset_button_pressed() -> void:
 
 
 func _ready() -> void:
-    pass
     var instance := puzzle_scenes[0].instantiate()
     add_child(instance)
     _current_puzzle = get_child(get_child_count() - 1)

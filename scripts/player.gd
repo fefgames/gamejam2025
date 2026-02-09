@@ -3,6 +3,7 @@ signal draw_force_vector(start: Vector2, end: Vector2)
 signal update_fuel_percentage(percentage: float)
 signal position_updated(pos: Vector2)
 signal rotation_updated(rot: float)
+signal speed_updated(speed: float)
 
 @export var debug := false
 var _force_active := true
@@ -73,6 +74,9 @@ func _process(delta: float) -> void:
     update_fuel_percentage.emit(_remaining_fuel_ratio * 100.0)
     if debug:
         draw_force_vector.emit(global_position, global_position + _left_force_vector)
+       
+       
+    speed_updated.emit(linear_velocity.length())
 
 
 func _enter_tree() -> void:

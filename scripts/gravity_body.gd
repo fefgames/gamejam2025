@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-const DENSITY := 1.0
+const DENSITY := 100.0
 const GRAVITY_SCALE := 10000.0
 
 

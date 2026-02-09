@@ -1,15 +1,24 @@
 [gd_scene format=4 uid="uid://dsm2t522nd03d"]
 
+[ext_resource type="Shader" uid="uid://cc0gg1cdia4m1" path="res://bg_shader.tres" id="1_08kqv"]
 [ext_resource type="Script" uid="uid://cg2xtkdgcqodl" path="res://scripts/game.gd" id="1_f6ptj"]
 [ext_resource type="PackedScene" uid="uid://dse2tx6buqtw8" path="res://scenes/puzzle_0.tscn" id="2_dubn7"]
 [ext_resource type="Script" uid="uid://cm6vxnotmvbeq" path="res://scripts/player_canvas.gd" id="3_ifa78"]
 [ext_resource type="Script" uid="uid://c5lbfj4wrtcik" path="res://scripts/player.gd" id="6_x63s8"]
 [ext_resource type="Texture2D" uid="uid://ckpif6uly47u6" path="res://svg/triangle.svg" id="7_0q20i"]
 [ext_resource type="Texture2D" uid="uid://dvgsnxgvf5aj8" path="res://png/square.png" id="8_qv8l0"]
+[ext_resource type="Script" uid="uid://c3c07h2n34ej" path="res://scripts/bg.gd" id="9_f6ptj"]
 [ext_resource type="Script" uid="uid://bp0gp5akokv8b" path="res://scripts/camera.gd" id="9_k6u5g"]
 [ext_resource type="Script" uid="uid://dq82rius77doi" path="res://scripts/fuel_progress_bar.gd" id="10_coh8c"]
 [ext_resource type="Texture2D" uid="uid://cga73l4kq4trk" path="res://svg/restart.svg" id="11_kmyi7"]
 [ext_resource type="Script" uid="uid://b81x7sl207vsp" path="res://scripts/texture_button.gd" id="12_ey6mn"]
+[ext_resource type="Script" uid="uid://b5gn7nwv2l72k" path="res://scripts/label.gd" id="13_hsdmi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_08kqv"]
+shader = ExtResource("1_08kqv")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dubn7"]
+size = Vector2(10000, 10000)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dubn7"]
 radius = 383.84
@@ -942,6 +951,17 @@ corner_detail = 6
 
 [node name="Node2D" type="Node2D" unique_id=2109495145]
 
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1357575221]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(54, -7)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Parallax2D" unique_id=1827841191]
+z_index = -1
+material = SubResource("ShaderMaterial_08kqv")
+rotation = -1.5707964
+mesh = SubResource("QuadMesh_dubn7")
+script = ExtResource("9_f6ptj")
+
 [node name="Game" type="Node2D" parent="." unique_id=1167656976 node_paths=PackedStringArray("player")]
 script = ExtResource("1_f6ptj")
 player = NodePath("../Player")
@@ -955,9 +975,7 @@ rotation = -1.5707964
 can_sleep = false
 freeze_mode = 1
 linear_damp_mode = 1
-linear_damp = 0.2
 angular_damp_mode = 1
-angular_damp = 0.415
 script = ExtResource("6_x63s8")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player" unique_id=1770253258]
@@ -1045,19 +1063,28 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="TextureButton" type="TextureButton" parent="Camera/Camera2D/UI/VBoxContainer/Control2" unique_id=854156874]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = -63.0
-offset_right = 63.0
-offset_bottom = -7.0
-grow_vertical = 0
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 543.0
+offset_right = 76.0
+offset_bottom = 607.0
 texture_normal = ExtResource("11_kmyi7")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("12_ey6mn")
+
+[node name="Label" type="Label" parent="Camera/Camera2D/UI/VBoxContainer/Control2" unique_id=1295682937]
+layout_mode = 0
+offset_left = 1063.0
+offset_top = 566.0
+offset_right = 1145.0
+offset_bottom = 611.0
+theme_override_font_sizes/font_size = 32
+text = "000.0"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("13_hsdmi")
 
 [node name="Placeholder" type="CollisionShape2D" parent="Camera" unique_id=228039443]
 shape = SubResource("CircleShape2D_hqns4")
@@ -1066,6 +1093,7 @@ shape = SubResource("CircleShape2D_hqns4")
 [connection signal="draw_force_vector" from="Player" to="Canvas" method="_on_player_draw_force_vector"]
 [connection signal="position_updated" from="Player" to="Camera" method="_on_player_position_updated"]
 [connection signal="rotation_updated" from="Player" to="Camera" method="_on_player_rotation_updated"]
+[connection signal="speed_updated" from="Player" to="Camera/Camera2D/UI/VBoxContainer/Control2/Label" method="_on_player_speed_updated"]
 [connection signal="update_fuel_percentage" from="Player" to="Camera/Camera2D/UI/VBoxContainer/ProgressBar" method="_on_player_update_fuel_percentage"]
 [connection signal="body_entered" from="Player/Area2D" to="Player" method="_on_proximal_body_entered"]
 [connection signal="body_exited" from="Player/Area2D" to="Player" method="_on_proximal_body_exited"]

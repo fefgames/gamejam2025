@@ -8,9 +8,9 @@
 script = ExtResource("1_fte85")
 
 [node name="PlayerSpawn" type="Node2D" parent="." unique_id=1897141901]
-position = Vector2(569, 41)
+position = Vector2(154, 41)
 script = ExtResource("2_hjvtu")
 
 [node name="GravityBody" parent="." unique_id=493412226 instance=ExtResource("3_00p5c")]
-position = Vector2(577, 310)
-scale = Vector2(4.5, 4.5)
+position = Vector2(577.00006, 310.00003)
+scale = Vector2(1.565, 1.565)
